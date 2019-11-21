@@ -13,19 +13,13 @@ namespace WebApplication1.Controllers
     {
         public IActionResult Index()
         {
-            List<Purchase> purchases=new List<Purchase>(); //создание нового листа
-            using (var db =new PurchaseContext()) //использование контекста
+            List<WelcomeModel> welcomers=new List<WelcomeModel>(); //создание нового листа
+            using (var db =new WelcomeContext()) //использование контекста
             {
-                db.purchases.Add(new Purchase { id=8, cost = 5200}); //добавление в таблицу purchases
+                db.welcomers.Add(new WelcomeModel { id=8, cost = 5200}); //добавление в таблицу welcomers
                 db.SaveChanges(); //сохранение изменение в таблице
-                purchases = db.purchases.ToList(); //перевод из таблицы бд в лист
+                welcomers = db.welcomers.ToList(); //перевод из таблицы бд в лист
             }
-
-            var a = purchases[0]; //что-то на паре делали
-
-            Expression<Func<Purchase, bool >> b = x => x.id > 10;
-
-            purchases.AsQueryable().Where(b).ToList();
 
             return View();
         }
