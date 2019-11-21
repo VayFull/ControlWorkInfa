@@ -1,8 +1,21 @@
-﻿@{
+﻿@model WelcomeModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <h1>GDC Welcomer</h1>
 
-
+Добро пожаловать!
+Введите свои данные:
+@{
+    var type = Model.GetType();
+    var properties = type.GetProperties();
+    <form method="post">
+        @properties[0].Name
+        <input type="text" required name="@properties[0].Name"/>
+        @properties[1].Name
+        <input type="text" required name="@properties[1].Name"/>
+        <input type="submit" value="Войти!"/>
+    </form>
+}
 

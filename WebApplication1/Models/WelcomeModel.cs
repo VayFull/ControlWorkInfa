@@ -6,6 +6,7 @@ namespace WebApplication1.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+        public string surname { get; set; }
         public bool isinbuilding { get; set; }
         public string profession { get; set; }
         public DateTime lastin { get; set; }

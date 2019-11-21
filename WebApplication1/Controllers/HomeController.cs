@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
@@ -13,14 +14,34 @@ namespace WebApplication1.Controllers
     {
         public IActionResult Index()
         {
-            List<WelcomeModel> welcomers=new List<WelcomeModel>(); //создание нового листа
-            using (var db =new WelcomeContext()) //использование контекста
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(WelcomeModel model)
+        {
+            WelcomeModel user = null;
+            using (var db = new WelcomeContext()) //использование контекста
             {
-                db.welcomers.Add(new WelcomeModel { id=8, cost = 5200}); //добавление в таблицу welcomers
-                db.SaveChanges(); //сохранение изменение в таблице
-                welcomers = db.welcomers.ToList(); //перевод из таблицы бд в лист
+                user = db.welcomers.Where(x => x.name == model.name && x.profession == model.profession)
+                    .ToList()[0];
             }
 
+            if (user == null)
+            {
+                ViewBag.Message =
+                    "Добро пожаловать! Пожалуйста, перед тем, как выйти из здания подойдите к соответствующему окну!";
+
+                using (var db = new WelcomeContext())
+                {
+                    db.Add(new WelcomeModel {isinbuilding = true, lastin = DateTime.Now,
+                        profession = model.profession, name = model.name});
+                }
+
+                return View();
+            }
+            ViewBag.Message =
+                "Добро пожаловать!";
             return View();
         }
 
