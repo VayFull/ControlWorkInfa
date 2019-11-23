@@ -1,7 +1,12 @@
-﻿@{
-    ViewData["Title"] = "About";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+﻿@model WelcomeModel
+<h1>Уходите из нашего здания? Пожалуйста отметьтесь тут!</h1>
+@ViewBag.Message
+<form method="post">
+    @Html.LabelFor(x => x.name)
+    <input type="text" name="name" required/>
+    @Html.LabelFor(x=>x.profession)
+    <input type="text" required name="profession"/>
+    <input type="submit" value="Отметиться"/>
+</form>
 
-<p>Use this area to provide additional information.</p>
+

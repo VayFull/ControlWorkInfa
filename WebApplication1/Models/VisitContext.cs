@@ -16,6 +16,6 @@ namespace WebApplication1.Models
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234QWER+"); //строка подключения
         }
 
-        public DbSet<WelcomeModel> visitmodel { get; set; }
+        public DbSet<VisitModel> visitmodel { get; set; }
     }
 }
